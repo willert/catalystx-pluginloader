@@ -1,0 +1,70 @@
+NAME
+    CatalystX::PluginLoader - Load plugins depending on local config
+
+SYNOPSIS
+     In MyApp.pm:
+
+      use CatalystX::PluginLoader with_local_plugins => {
+
+        # search local config in this path resp. use this file
+        # ( __HOST__ is expanded with Sys::Hostname )
+        config      => 'etc/__HOST__',
+
+        # search path for '-LocalPlugin' syntax, default is 'MyApp::Plugin'
+        plugin_path => [ 'MyApp::MorePlugins' ]
+      };
+
+      use Catalyst with_local_plugins(
+
+        # ... normal catalyst plugins ...
+
+        # search for plugin in MyApp::MorePlugins
+        '-LocalPlugin',
+      );
+
+      # loading local plugins can be done in your local config
+      # file ( default confis will be ignored by design)
+
+    Loading local plugins with myapp_local.conf:
+
+     <PluginLoader>
+       libs /src/experimental/ext_lib
+       <plugins>
+         prepend StackTrace
+         append  FirePHP
+         append  -YourLocalPlugin
+       </plugins>
+     </PluginLoader>
+
+DESCRIPTION
+    CatalystX::PluginLoader can be used to load some plugins depending local
+    configuration files and eases the use of plugins in namespaces other
+    than "Catalyst::Plugin". It tries its best to emulate the semantics of
+    Catalyst::Plugin::ConfigLoader and Catalyst::Plugin::ConfigLoader::Multi
+    to find and parse config files but you are free to use any file and any
+    format that is compatible with Config::Any.
+
+BUGS
+    Plenty, I guess. Especially the code for finding local config files is
+    untested in many scenarios. Bug reports, patches and pull requests
+    welcome. Remember, this is a early version of and hasn't seen
+    wide-spread testing.
+
+SOURCE AVAILABILITY
+    This code is in Github:
+
+     git://github.com/willert/catalystx-pluginloader.git
+
+SEE ALSO
+    <http://github.com/willert/catalystx-pluginloader/>, Catalyst::Runtime,
+    Catalyst::ConfigLoader
+
+AUTHOR
+    Sebastian Willert, "willert@cpan.org"
+
+COPYRIGHT AND LICENSE
+    Copyright 2009 by Sebastian Willert <willert@cpan.org>
+
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
