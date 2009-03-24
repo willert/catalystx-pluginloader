@@ -1,0 +1,13 @@
+---
+PluginLoader:
+
+  libs:
+    - __HOME__/../../ext_lib
+  namespace:
+    - TestApp::MorePlugins
+
+  plugins:
+    prepend:
+      - -AnotherPlugin
+    append:
+      - -TestPlugin
